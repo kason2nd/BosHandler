@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- 怎么识别同样的图片就不上传 -->
+<html>
+  <head>
+  <title>html5_2.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="./BosHandler.css">
+  <style type="text/css">
+    .BosUploader-addfile {
+      position: relative;
+      display: inline-block;
+      background: #D0EEFF;
+      border: 1px solid #99D3F5;
+      border-radius: 4px;
+      padding: 4px 12px;
+      overflow: hidden;
+      color: #1E88C7;
+      text-decoration: none;
+      text-indent: 0;
+      line-height: 20px;
+    }
+    .BosUploader-addfile:hover {
+      background: #AADFFD;
+      border-color: #78C3F3;
+      color: #004974;
+      text-decoration: none;
+    }
+    .BosUploader-addfile input{
+      position: absolute;
+      font-size: 100px;
+      right: 0;
+      top: 0;
+      opacity: 0;
+    }
+  </style>
+  </head>
+  <body>
+    <div class="container">
+      
+    </div>
+    <div class="BosUploader">
+      <div class="BosUploader-bg">
+        <div class="BosUploader-dialog">
+          <button class="BosUploader-close"></button>
+          <div class="BosUploader-fileContainer">
+            <ul class="BosUploader-fileitem">
+              <li><button></button><p></p><span></span></li>
+            </ul>
+            <a href="###" class="BosUploader-addfile">添加文件
+              <input type="file" multiple="multiple" accept="image/*">
+            </a>
+          </div>
+          <button class="BosUploader-startUpload"></button>
+        </div>
+      </div>
+    </div>
+  <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript" src="./BosHandler.js"></script>
+  <script type="text/javascript">
+
+  $(document).ready(function(){
+    $(".BosUploader-addfile input").on("change",function(){
+      var fileList=this.files;
+      init($(".container"),"aaa",addItemfun);
+      readFileItems(fileList);
+    });
+  });
+  function addItemfun(name,data){
+    var $thumb = getThumb(name,data);
+    $container.append($thumb);
+    console.log("add Item:"+name);
+  }
+  // function showPic(){
+  //   var pic = $("#pic").get(0).files[0];
+  //   $("img").prop("src" ,createObjUrl(pic));
+  //   var pic = $("#pic").get(0).files[0];
+  //   uploadFile({file:pic,kason:"aaa"},onprogress);
+  // }
+  //侦查附件上传情况 ,这个方法大概0.05-0.1秒执行一次
+  function onprogress(evt){
+    var loaded = evt.loaded;     //已经上传大小情况 
+    var tot = evt.total;      //附件总大小 
+    var per = Math.floor(100*loaded/tot);  //已经上传的百分比 
+    $("#son").html( per +"%" );
+    $("#son").css("width" , per +"%");
+  }
+
+  </script>
+  </body>
+</html>
